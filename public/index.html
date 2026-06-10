@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>driver-api admin</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <header>
+    <h1>driver-api</h1>
+    <nav>
+      <button class="tab-btn active" data-tab="orders">Orders</button>
+      <button class="tab-btn" data-tab="safety-events">Safety Events</button>
+      <button class="tab-btn" data-tab="gps-events">GPS Events</button>
+      <button class="tab-btn" data-tab="sos-events">SOS Events</button>
+      <button class="tab-btn" data-tab="messages">Messages</button>
+      <button class="tab-btn" data-tab="documents">Documents</button>
+      <button class="tab-btn" data-tab="logs">Raw Request Log</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="tab-orders" class="tab-panel active">
+      <h2>Orders</h2>
+      <form id="order-form">
+        <input type="hidden" name="id" />
+        <div class="grid">
+          <label>ID (leave blank to auto-generate)<input name="idInput" placeholder="e.g. ORD-001" /></label>
+          <label>Title<input name="title" required /></label>
+          <label>Status
+            <select name="status">
+              <option value="pending">pending</option>
+              <option value="assigned">assigned</option>
+              <option value="in_progress">in_progress</option>
+              <option value="completed">completed</option>
+              <option value="cancelled">cancelled</option>
+            </select>
+          </label>
+          <label>Priority
+            <select name="priority">
+              <option value="low">low</option>
+              <option value="medium" selected>medium</option>
+              <option value="high">high</option>
+            </select>
+          </label>
+          <label>Pickup address<input name="pickupAddress" required /></label>
+          <label>Delivery address<input name="deliveryAddress" required /></label>
+          <label>Pickup lat<input name="pickupLat" type="number" step="any" required /></label>
+          <label>Pickup lng<input name="pickupLng" type="number" step="any" required /></label>
+          <label>Delivery lat<input name="deliveryLat" type="number" step="any" required /></label>
+          <label>Delivery lng<input name="deliveryLng" type="number" step="any" required /></label>
+          <label>Distance (km)<input name="distanceKm" type="number" step="any" value="0" /></label>
+          <label>Estimated minutes<input name="estimatedMinutes" type="number" step="any" value="0" /></label>
+          <label>Item count<input name="itemCount" type="number" step="1" value="1" /></label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" id="order-submit">Add order</button>
+          <button type="button" id="order-cancel" class="secondary" hidden>Cancel edit</button>
+        </div>
+      </form>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Title</th><th>Status</th><th>Priority</th>
+            <th>Pickup</th><th>Delivery</th><th>Distance</th><th>Created</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="orders-body"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-safety-events" class="tab-panel">
+      <h2>Safety Events</h2>
+      <table>
+        <thead><tr><th>Received</th><th>Type</th><th>Severity</th><th>Order</th><th>Driver</th><th>Payload</th></tr></thead>
+        <tbody id="safety-events-body"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-gps-events" class="tab-panel">
+      <h2>GPS Events</h2>
+      <table>
+        <thead><tr><th>Received</th><th>Driver</th><th>Order</th><th>Lat</th><th>Lng</th><th>Speed (km/h)</th></tr></thead>
+        <tbody id="gps-events-body"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-sos-events" class="tab-panel">
+      <h2>SOS Events</h2>
+      <table>
+        <thead><tr><th>Received</th><th>Reason</th><th>Driver</th><th>Order</th><th>Status</th><th>Location</th></tr></thead>
+        <tbody id="sos-events-body"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-messages" class="tab-panel">
+      <h2>Messages</h2>
+      <table>
+        <thead><tr><th>Created</th><th>Order</th><th>Sender</th><th>Text</th></tr></thead>
+        <tbody id="messages-body"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-documents" class="tab-panel">
+      <h2>Documents / POD / Expenses</h2>
+      <table>
+        <thead><tr><th>Received</th><th>Kind</th><th>Payload</th></tr></thead>
+        <tbody id="documents-body"></tbody>
+      </table>
+    </section>
+
+    <section id="tab-logs" class="tab-panel">
+      <h2>Raw Request Log</h2>
+      <p class="hint">Every request hitting this server, regardless of route.</p>
+      <table>
+        <thead><tr><th>Received</th><th>Method</th><th>Path</th><th>Body</th></tr></thead>
+        <tbody id="logs-body"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
