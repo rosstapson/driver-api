@@ -9,7 +9,8 @@
     "start": "node src/server.js",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "node src/db/seed.js"
   },
   "keywords": [],
   "author": "",
